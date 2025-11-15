@@ -19,6 +19,9 @@ public class User {
 
     private String role = "ROLE_USER";
 
+    // Konstruktor bezargumentowy wymagany przez Hibernate (dobrze wiedzieć)
+    public User() {
+    }
     public User(String username, String password, String role) {
         this.username = username;
         this.password = password;

@@ -21,8 +21,8 @@ import io.jsonwebtoken.security.Keys;
 
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    private final String JWT_SECRET = "twojTajnySekretJWT12345678901234";
-
+//    private final String JWT_SECRET = "hd7S8d2jskaQ0kdpQvAwr0vqZ6jaPMe3aaaaaaaaaaaa";
+//SecretKey key = Keys.hmacShaKeyFor("hd7S8d2jskaQ0kdpQvAwr0vqZ6jaPMe3".getBytes(StandardCharsets.UTF_8));
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response, FilterChain filterChain)
@@ -32,7 +32,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
             try {
-                SecretKey key = Keys.hmacShaKeyFor(JWT_SECRET.getBytes(StandardCharsets.UTF_8));
+                SecretKey key = Keys.hmacShaKeyFor("hd7S8d2jskaQ0kdpQvAwr0vqZ6jaPMe3".getBytes(StandardCharsets.UTF_8));
 
                 // NOWE API JJWT 0.12.5
                 Claims claims = Jwts.parser()
