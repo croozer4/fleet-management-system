@@ -4,6 +4,7 @@ import com.fleet.auth_service.JwtTokenService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,7 +16,8 @@ public class AuthController {
     private final JwtTokenService jwtTokenService;
     private final AuthenticationManager authenticationManager;
 
-    public AuthController(JwtTokenService jwtTokenService, AuthenticationManager authenticationManager) {
+    public AuthController(JwtTokenService jwtTokenService,
+                          AuthenticationManager authenticationManager) {
         this.jwtTokenService = jwtTokenService;
         this.authenticationManager = authenticationManager;
     }
