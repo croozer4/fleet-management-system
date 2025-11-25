@@ -2,10 +2,13 @@ package com.fleet.auth_service.controller;
 
 import com.fleet.auth_service.model.User;
 import com.fleet.auth_service.repository.UserRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import  java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/api/users")
 public class UserController {
@@ -23,8 +26,32 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user){
+    public User createUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
+    }
+
+    @PutMapping("/{username}")
+    public ResponseEntity<User> updateUser(@PathVariable String username, @RequestBody User updatedUser) {
+        Optional<User> userOpt = userRepository.findByUsername(username);
+        if(userOpt.isPresent()){
+            User user = userOpt.get();
+            user.setRole(updatedUser.getRole());
+            userRepository.save(user);
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{username}")
+    public ResponseEntity<Void> deleteUser(@PathVariable String username) {
+       Optional<User> user = userRepository.findByUsername(username);
+       if (user.isPresent()) {
+           userRepository.delete(user.get());
+           return ResponseEntity.noContent().build();
+       } else {
+           return ResponseEntity.noContent().build();
+       }
     }
 }

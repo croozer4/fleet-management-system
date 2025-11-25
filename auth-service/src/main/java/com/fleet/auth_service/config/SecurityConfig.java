@@ -3,6 +3,7 @@ package com.fleet.auth_service.config;
 import com.fleet.auth_service.CustomUserDetailsService;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -46,6 +47,7 @@ public class SecurityConfig {
         http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/users").hasRole("ADMIN")
                         .anyRequest().authenticated())
                 .addFilterBefore(new JwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return http.build();
