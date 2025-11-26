@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import  java.util.List;
 import java.util.Optional;
 
@@ -19,6 +20,16 @@ public class UserController {
         this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
     }
+    @GetMapping("/{username}")
+    public ResponseEntity<User> getUser(@PathVariable String username){
+        Optional<User> userOpt = userRepository.findByUsername(username);
+        if (userOpt.isPresent()){
+            User user = userOpt.get();
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     @GetMapping
     public List<User> getAllUsers() {
@@ -28,6 +39,8 @@ public class UserController {
     @PostMapping
     public User createUser(@RequestBody User user) {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setCreatedAt(LocalDateTime.now());
+        user.setUpdatedAt(LocalDateTime.now());
         return userRepository.save(user);
     }
 
@@ -37,6 +50,7 @@ public class UserController {
         if(userOpt.isPresent()){
             User user = userOpt.get();
             user.setRole(updatedUser.getRole());
+            user.setUpdatedAt(LocalDateTime.now());
             userRepository.save(user);
             return ResponseEntity.ok(user);
         } else {
