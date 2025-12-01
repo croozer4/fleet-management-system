@@ -8,9 +8,13 @@ This service handles *authentication and user management* with the following fea
 Includes username, email, first name, last name, phone number, date of birth, hashed password using BCrypt, roles (e.g., ROLE_ADMIN, ROLE_USER), and audit fields like createdAt, updatedAt, lastLogin.
 
 **Authentication:**
-- Login endpoint: POST /api/auth/login that authenticates users using Spring Security’s AuthenticationManager.
+- Login endpoint: POST `/api/auth/login` that authenticates users using Spring Security’s AuthenticationManager.
 - Returns JWT containing username and roles.
 - JWT validation via JwtAuthenticationFilter.
+- Refresh token support:
+  - Generates and stores refresh tokens tied to users with expiration.
+  - Endpoint POST `/api/auth/refresh` validates and renews access tokens using refresh tokens.
+  - Supports secure session continuation without re-login.
 
 **User Management API:**
 - `GET /api/users` — returns a list of all users.
@@ -23,5 +27,5 @@ Includes username, email, first name, last name, phone number, date of birth, ha
 **Security:**
 - Passwords hashed with BCrypt to protect against brute force attacks.
 - JWT tokens used for stateless authentication with role-based claims.
-- Security configuration permits unauthenticated access to /api/auth/login and protects other endpoints.
+- Security configuration permits unauthenticated access to `/api/auth/login` and `/api/auth/refresh` to protects other endpoints.
 - `LastLogin` field updated upon successful login.
