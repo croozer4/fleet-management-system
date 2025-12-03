@@ -12,5 +12,42 @@ services:
     volumes:
       - postgres_auth_data:/var/lib/postgresql/data
 
+  postgres-fleet:
+    image: postgres:16
+    container_name: postgres-fleet
+    restart: always
+    environment:
+      POSTGRES_USER: fleet_user
+      POSTGRES_PASSWORD: fleet_pass
+      POSTGRES_DB: fleet_db
+    ports:
+      - "5433:5432"  # inny port, żeby nie kolidował z auth
+    volumes:
+      - postgres_fleet_data:/var/lib/postgresql/data
+
+  # auth-service:
+  #   build: ./auth-service
+  #   ports:
+  #     - "8081:8081"
+  #   depends_on:
+  #     - postgres-auth
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-auth:5432/auth_db
+  #     SPRING_DATASOURCE_USERNAME: auth_user
+  #     SPRING_DATASOURCE_PASSWORD: auth_pass
+
+  # fleet-service:
+  #   build: ./fleet-service
+  #   ports:
+  #     - "8082:8082"
+  #   depends_on:
+  #     - postgres-fleet
+  #   environment:
+  #     SPRING_DATASOURCE_URL: jdbc:postgresql://postgres-fleet:5432/fleet_db
+  #     SPRING_DATASOURCE_USERNAME: fleet_user
+  #     SPRING_DATASOURCE_PASSWORD: fleet_pass
+  #     SPRING_APPLICATION_NAME: fleet-service
+
 volumes:
   postgres_auth_data:
+  postgres_fleet_data:
