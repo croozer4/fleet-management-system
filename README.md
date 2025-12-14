@@ -29,3 +29,13 @@ Includes username, email, first name, last name, phone number, date of birth, ha
 - JWT tokens used for stateless authentication with role-based claims.
 - Security configuration permits unauthenticated access to `/api/auth/login` and `/api/auth/refresh` to protects other endpoints.
 - `LastLogin` field updated upon successful login.
+
+## Fleet Service
+This service handles *vehicle data management* with the following features implemented so far:
+
+**Vehicle Model:**
+Includes `vin`, `plate`, `type` (TRUCK, VAN, TRAILER), `capacityKg`, `status` (AVAILABLE, ASSIGNED, MAINTENANCE), `lastMaintenance`, `mileage`, `lat`, `lon`.
+
+**Persistence Layer:**
+- `VehicleRepository` extending `JpaRepository<Vehicle, UUID>`.
+- Query methods: `findByStatus`, `findByType`.
