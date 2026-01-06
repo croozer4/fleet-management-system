@@ -1,4 +1,4 @@
-package com.fleet.auth_service;
+package com.fleet.fleet_service;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

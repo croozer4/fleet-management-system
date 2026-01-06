@@ -1,4 +1,4 @@
-package com.fleet.auth_service.model;
+package com.fleet.fleet_service.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
@@ -57,6 +57,14 @@ public class Vehicle {
 
     public UUID getId() {
         return this.id;
+    }
+
+    public String getVin() {
+        return this.vin;
+    }
+
+    public void setVin(String vin){
+        this.vin = vin;
     }
 
     public String getPlate(){

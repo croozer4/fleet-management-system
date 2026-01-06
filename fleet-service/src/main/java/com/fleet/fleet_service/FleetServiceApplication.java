@@ -1,13 +1,13 @@
-package com.fleet.auth_service;
+package com.fleet.fleet_service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AuthServiceApplication {
+public class FleetServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(AuthServiceApplication.class, args);
+		SpringApplication.run(FleetServiceApplication.class, args);
 	}
 
 }

@@ -14,4 +14,4 @@ spring:
   application:
     name: fleet-service
 server:
-  port: 8081
+  port: 8082

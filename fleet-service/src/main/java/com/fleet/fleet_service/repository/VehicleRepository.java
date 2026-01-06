@@ -1,6 +1,6 @@
-package com.fleet.auth_service.repository;
+package com.fleet.fleet_service.repository;
 
-import com.fleet.auth_service.model.Vehicle;
+import com.fleet.fleet_service.model.Vehicle;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
@@ -8,5 +8,5 @@ import java.util.UUID;
 
 public interface VehicleRepository extends JpaRepository<Vehicle, UUID> {
     List<Vehicle> findByStatus(String status);
-    List<Vehicle> finfByType(String type);
+    List<Vehicle> findByType(String type);
 }
